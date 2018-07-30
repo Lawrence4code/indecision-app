@@ -9,6 +9,28 @@ class Counter extends Component {
     this.resetCountHandler = this.resetCountHandler.bind(this);
   }
 
+  componentDidMount() {
+    console.log('componentDidMount');
+    const json = localStorage.getItem('count');
+    const count = parseInt(json, 10);
+
+    if (!isNaN(count)) {
+      this.setState(() => {
+        return {
+          count
+        };
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('compoenentDidUpdated');
+    if (prevState.count !== this.state.count) {
+      const json = JSON.stringify(this.state.count);
+      localStorage.setItem('count', json);
+    }
+  }
+
   addOneHandler = () => {
     this.setState(prevState => {
       return {
