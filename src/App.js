@@ -5,7 +5,7 @@ class IndecisionApp extends Component {
   constructor(props) {
     super();
     this.state = {
-      options: ['Thing One', 'Thing Two', 'Thing Three']
+      options: props.options
     };
   }
 
@@ -41,11 +41,11 @@ class IndecisionApp extends Component {
   };
 
   render() {
-    const title = 'Indecision';
+    // const title = 'Indecision';
     const subtitle = 'Put your life in the hands of a computer.';
     return (
       <div className="App">
-        <Header title={title} subtitle={subtitle} />
+        <Header subtitle={subtitle} />
         <Action
           hasOptions={this.state.options.length > 0}
           handlePick={this.handlePick}
@@ -60,13 +60,21 @@ class IndecisionApp extends Component {
   }
 }
 
+IndecisionApp.defaultProps = {
+  options: []
+};
+
 const Header = props => {
   return (
     <div>
       <h1> {props.title} </h1>
-      <h2> {props.subtitle} </h2>
+      {props.subtitle && <h2> {props.subtitle} </h2>}
     </div>
   );
+};
+
+Header.defaultProps = {
+  title: 'Indecision'
 };
 
 const Action = props => {
